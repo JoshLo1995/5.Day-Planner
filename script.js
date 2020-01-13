@@ -8,7 +8,6 @@ $(document).ready(function() {
     });
 })
 
-
 /**
  * Function description
  *
@@ -51,18 +50,24 @@ function coloredTextAreas() {
     let now = moment().hour();
     // What is the JS equivalent to range() in python?
     let hours = Array(9, 10, 11, 12, 13, 14, 15, 16, 17, 18);
-    let counter = 0;
+    let counter = 1;
 
     // If time has passed, push into colored
     for (hour of hours) {
-        (now > hour) ? colored.push("#input" + counter) : now == counter ? current = "#input" + counter : counter++;
+        if (now > hour) {
+            colored.push("#input" + counter);
+            counter++;
+        } 
     }
 
+    // Set color of all passed hour blocks
     for (color of colored) {
         $(color).css("background-color", "grey");
     }
+    
+    // Set color of current hour block 
+    $("#input" + (now - 8)).css("background-color", "Green");
 
-    $(current).css("background-color", "red");
 }
 
 // Takes value of textbox and saves it into localstorage 
