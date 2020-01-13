@@ -3,29 +3,35 @@ $(document).ready(function() {
     coloredTextAreas();
     load();
 
-
     $(".btn").click(function(event) {
         saveText(event.target.id);
-    })
-
-    // $(".input").focus(function() {
-    //     coloredTextAreas(this.id);
-    // });
+    });
 })
 
 
-// Populate all text fields with saved info from local storage
+/**
+ * Function description
+ *
+ * Populate all text fields with previously saved information from localStorage
+ * @param - Takes no params
+ * @return - Does not return Anything
+ * 
+ */
 function load() {
     let savedText;
     for (i = 1; i <= 9; i++) {
-        savedText = localStorage.getItem("save"+i);
+        savedText = localStorage.getItem("save" + i);
         $("#input" + i).val(savedText);
     }
-
 }
 
-
 // Display the date and time at the top of the page
+/**
+ * Function description
+ *
+ * @param - Takes no params
+ * @return - Does not return Anything
+ */
 function dateAndtime() {
     setInterval(function() {
         $("#currentDate").text(moment().format('MMMM Do YYYY, h:mm:ss a'));
@@ -33,7 +39,13 @@ function dateAndtime() {
 }
 
 // Change the background color of a text area depending on if the time has passed or not
-function coloredTextAreas(txtField) {
+/**
+ * Function description
+ *
+ * @param - Takes no params
+ * @return - Does not return Anything
+ */
+function coloredTextAreas() {
     let colored = [];
     let current;
     let now = moment().hour();
@@ -43,8 +55,7 @@ function coloredTextAreas(txtField) {
 
     // If time has passed, push into colored
     for (hour of hours) {
-        (now > hour) ? colored.push("#input" + counter) : now == counter ? current = "#input"+counter : pass;
-        counter++;
+        (now > hour) ? colored.push("#input" + counter) : now == counter ? current = "#input" + counter : counter++;
     }
 
     for (color of colored) {
@@ -52,12 +63,15 @@ function coloredTextAreas(txtField) {
     }
 
     $(current).css("background-color", "red");
-
 }
 
-
-// Select text box and its value
-// Save to local storage
+// Takes value of textbox and saves it into localstorage 
+/**
+ * Function description
+ *
+ * @param - (string) clicked - string input of the buttonID that created an event
+ * @return - Does not return Anything
+ */
 function saveText(clicked) {
     console.log(typeof(clicked));
     let textInBox = $("#input" + clicked.slice(-1)).val();
